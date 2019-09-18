@@ -4,51 +4,119 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
     public float pSpeed;
-
+    public int player = 1;
     private bool l;
     private bool r;
     private bool u;
     private bool d;
+
+    private string m_inputs;
 
     // Use this for initialization
     void Start() {
         pSpeed = 0.1f;
     }
 
+    void huboColision()
+    {
+        RaycastHit hit;
+        Vector3 aux = new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z);
+        if (!Physics.Raycast(transform.position, aux, out hit, 1) || hit.collider.isTrigger)
+        {
+
+            Debug.Log("holi");
+            //transform.Translate(aux);
+           // GameManager.instance.UpdatePasos();
+        }
+
+
+        else
+        {
+            Debug.Log("PUM");
+            hit.collider.GetComponent<Balon>();
+
+            Balon b = hit.collider.GetComponent<Balon>();
+            if (b != null)
+            {
+
+                if (b.push(gameObject.transform.position.x, gameObject.transform.position.z))
+                {
+                    Destroy(gameObject);
+                }
+            }
+
+        }
+    }
+
+
     void Update() {
         movementInfo();
+        huboColision();
     }
 
     void movementInfo() {
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {  //Izquierda
-            Move(-1, 0);
-            l = true;
-        }
-        else l = false;
-        if (Input.GetKey(KeyCode.RightArrow))   //Derecha
+        if (player == 1)
         {
-            LookAt(1, 0);
-            Move(1, 0);
-            r = true;
-        }
-        else r = false;
-        if (Input.GetKey(KeyCode.UpArrow))  //Arriba
-        {
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {  //Izquierda
+                Move(-1, 0);
+                l = true;
+            }
+            else l = false;
+            if (Input.GetKey(KeyCode.RightArrow))   //Derecha
+            {
+                LookAt(1, 0);
+                Move(1, 0);
+                r = true;
+            }
+            else r = false;
+            if (Input.GetKey(KeyCode.UpArrow))  //Arriba
+            {
 
-            Move(0, 1);
-            u = true;
+                Move(0, 1);
+                u = true;
+            }
+            else u = false;
+            if (Input.GetKey(KeyCode.DownArrow))    //Abajo
+            {
+                LookAt(0, -1);
+                Move(0, -1);
+                d = true;
+            }
+            else d = false;
         }
-        else u = false;
-        if (Input.GetKey(KeyCode.DownArrow))    //Abajo
+        else
         {
-            LookAt(0, -1);
-            Move(0, -1);
-            d = true;
-        }
-        else d = false;
+            if (Input.GetKey(KeyCode.A))
+            {  //Izquierda
+                Move(-1, 0);
+                l = true;
+            }
+            else l = false;
+            if (Input.GetKey(KeyCode.D))   //Derecha
+            {
+                LookAt(1, 0);
+                Move(1, 0);
+                r = true;
+            }
+            else r = false;
+            if (Input.GetKey(KeyCode.W))  //Arriba
+            {
 
-        // Horientacion
+                Move(0, 1);
+                u = true;
+            }
+            else u = false;
+            if (Input.GetKey(KeyCode.S))    //Abajo
+            {
+                LookAt(0, -1);
+                Move(0, -1);
+                d = true;
+            }
+            else d = false;
+        }
+
+        // orientacion
         if (l && u) LookAt(-1, 1);
         else if (l && d) LookAt(-1, -1);
         else if (r && u) LookAt(1, 1);

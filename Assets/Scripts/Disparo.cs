@@ -11,7 +11,7 @@ public class Disparo : MonoBehaviour
     public float fireRate = 1f;
 
     private string m_FireButton;                // The input axis that is used for launching shells.
-    private bool m_Fired;                       // Whether or not the shell has been launched with this button press.
+    private bool m_Fired = true;                       // Whether or not the shell has been launched with this button press.
     private float nextFireTime;
 
     private void OnEnable() {}
@@ -31,11 +31,13 @@ public class Disparo : MonoBehaviour
         }
         // Otherwise, if the fire button is being held and the shell hasn't been launched yet...
         else if (Input.GetButton(m_FireButton) && !m_Fired) {
-            Fire(m_LaunchForce, fireRate);
+            //Fire(m_LaunchForce, fireRate);
+            m_Fired = false;
         }
         // Otherwise, if the fire button is released and the shell hasn't been launched yet...
         else if (Input.GetButtonUp(m_FireButton) && !m_Fired) {
-            Fire(m_LaunchForce, fireRate);
+            //Fire(m_LaunchForce, fireRate);
+            m_Fired = false;
 
         }
     }
@@ -51,6 +53,7 @@ public class Disparo : MonoBehaviour
 
             // Set the shell's velocity to the launch force in the fire position's forward direction.
             shellInstance.GetComponent<Rigidbody>().velocity = m_LaunchForce * m_FireTransform.forward;
+           
         }
     }
 }
