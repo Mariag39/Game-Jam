@@ -2,24 +2,58 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : MonoBehaviour
+{
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    float pSpeed;
 
-    // Update is called once per frame
-    //Para que mire a la izqd -> Y = 90
-    //                   der  -> Y = -90
-    //                   abj  -> Y = 0
-    //                   arr  -> Y = 180
-    void Update () {
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) 
+    // Use this for initialization
+    void Start()
+    {
+        pSpeed = 0.1f;
+    }
+
+    void Update()
+    {
+
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
-            //transform.Rotate(Vector3.down, 90f);
-            gameObject.transform.LookAt(Vector3.down);
-            //gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, posFin, 0.3f);
+
+            LookAt(-1, 0);
+            Move(-1, 0 );
         }
+        else if (Input.GetKey(KeyCode.RightArrow))
+        {
+            LookAt(1, 0);
+            Move(1, 0);
+
+        }
+        else if (Input.GetKey(KeyCode.UpArrow))
+        {
+            LookAt(0, 1);
+            Move(0, 1);
+        }
+        else if (Input.GetKey(KeyCode.DownArrow))
+        {
+            LookAt(0, -1);
+            Move(0, -1);
+        }
+    }
+
+    void LookAt(int x, int z)
+    {
+        Vector3 pPlayer = this.transform.position;
+        gameObject.transform.LookAt(new Vector3(pPlayer.x + x, pPlayer.y, pPlayer.z + z));
+
+    }
+    void Move(int x, int z)
+    {
+        Vector3 pPlayer = this.transform.position;
+        if (x != 0)
+            pPlayer.x += pSpeed * x;
+        else
+            pPlayer.z += pSpeed * z;
+
+        this.transform.position = pPlayer;
     }
 }
