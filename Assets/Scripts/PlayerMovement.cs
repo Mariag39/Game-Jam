@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour {
     private bool r;
     private bool u;
     private bool d;
+    public GameObject ball;
 
     private string m_inputs;
 
@@ -17,41 +18,26 @@ public class PlayerMovement : MonoBehaviour {
         pSpeed = 0.1f;
     }
 
-    void huboColision()
+    private void OnCollisionEnter(Collision collision)
     {
-        RaycastHit hit;
-        Vector3 aux = new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z);
-        if (!Physics.Raycast(transform.position, aux, out hit, 1) || hit.collider.isTrigger)
+        if(collision.gameObject.tag == ball.tag)
         {
-
-            Debug.Log("holi");
-            //transform.Translate(aux);
-           // GameManager.instance.UpdatePasos();
-        }
-
-
-        else
-        {
-            Debug.Log("PUM");
-            hit.collider.GetComponent<Balon>();
-
-            Balon b = hit.collider.GetComponent<Balon>();
-            if (b != null)
-            {
-
-                if (b.push(gameObject.transform.position.x, gameObject.transform.position.z))
-                {
-                    Destroy(gameObject);
-                }
-            }
-
+            Debug.Log("pum");
         }
     }
 
 
+    private void OnCollisionExit(Collision collision)
+    {
+        //if (collision.gameObject.tag == ball.tag)
+        //{
+        //    Debug.Log("pum");
+        //}
+    }
+
     void Update() {
         movementInfo();
-        huboColision();
+        
     }
 
     void movementInfo() {
@@ -125,12 +111,13 @@ public class PlayerMovement : MonoBehaviour {
         else if (d) LookAt(0, -1);
         else if (l) LookAt(-1, 0);
         else if (r) LookAt(1, 0);
+       
     }
 
     void LookAt(int x, int z) {
         Vector3 pPlayer = this.transform.position;
         gameObject.transform.LookAt(new Vector3(pPlayer.x + x, pPlayer.y, pPlayer.z + z));
-
+        
     }
 
     void Move(int x, int z) {
@@ -141,5 +128,6 @@ public class PlayerMovement : MonoBehaviour {
             pPlayer.z += pSpeed * z;
 
         this.transform.position = pPlayer;
+        
     }
 }

@@ -5,29 +5,6 @@ public class Balon : MonoBehaviour {
     public float m_MaxLifeTime = 4f;
 
 
-    public bool push(float x, float z)
-    {
-
-        Vector3 vec = new Vector3(x, 0, z);
-        RaycastHit hit;
-        if (!Physics.Raycast(transform.position, vec, out hit, 1))
-        {
-           
-            
-            return true;
-
-
-        }
-        else
-        {
-            Destroy(gameObject);
-            Debug.Log("holi");
-            return false;
-        }
-
-
-    }
-
 
     private void Start()
     {
