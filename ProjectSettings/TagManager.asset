@@ -9,6 +9,8 @@ TagManager:
   - player2
   - Balon2
   - wall_red
+  - rayos
+  - three
   layers:
   - Default
   - TransparentFX
