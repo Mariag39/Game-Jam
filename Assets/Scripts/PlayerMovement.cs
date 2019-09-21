@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour {
     public float pSpeed;
@@ -10,9 +11,13 @@ public class PlayerMovement : MonoBehaviour {
     private bool u;
     private bool d;
     public GameObject ball;
-
+    public GameManager gm;
     private string m_inputs;
-
+    public Slider healthbar;
+    bool velocidad;
+    public bool threeshoot;
+    float timer = 0.0f;
+   
     // Use this for initialization
     void Start() {
         pSpeed = 0.1f;
@@ -22,22 +27,52 @@ public class PlayerMovement : MonoBehaviour {
     {
         if(collision.gameObject.tag == ball.tag)
         {
-            Debug.Log("pum");
+            gm.takeDamage(10);
+            healthbar.value -= 10;
+            Destroy(collision.gameObject);
+        }else if(collision.gameObject.tag == "rayos")
+        { 
+            velocidad = true;
+            Destroy(collision.gameObject);
+        }else if(collision.gameObject.tag == "three"){
+            threeshoot = true;
+            Destroy(collision.gameObject);
         }
     }
 
 
     private void OnCollisionExit(Collision collision)
     {
-        //if (collision.gameObject.tag == ball.tag)
-        //{
-        //    Debug.Log("pum");
-        //}
+      
     }
 
     void Update() {
         movementInfo();
-        
+       
+        if (velocidad)
+        {
+
+            pSpeed = 0.3f;
+            timer += Time.deltaTime;
+            int seconds = (int)(timer % 60);
+            if (seconds == 4)
+            {
+                Debug.Log(pSpeed);
+                pSpeed = 0.1f;
+                Debug.Log(pSpeed);
+                velocidad = false;
+                timer = 0f;
+            }
+        }else if (threeshoot)
+        {
+            timer += Time.deltaTime;
+            int seconds = (int)(timer % 60);
+            if (seconds == 4)
+            {
+                threeshoot = false;
+                timer = 0f;
+            }
+        }
     }
 
     void movementInfo() {

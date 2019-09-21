@@ -60,9 +60,13 @@
     <Compile Include="Assets\Scripts\Disparo.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+<<<<<<< HEAD
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/CELIA/GameJam_Sep2019/Game-Jam/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
+=======
+    <Compile Include="Assets\Scripts\PUManager.cs" />
+>>>>>>> master
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/CELIA/GameJam_Sep2019/Game-Jam/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

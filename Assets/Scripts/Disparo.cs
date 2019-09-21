@@ -9,11 +9,11 @@ public class Disparo : MonoBehaviour
     public Transform m_FireTransform;           // A child of the tank where the shells are spawned.
     public float m_LaunchForce = 15f;
     public float fireRate = 1f;
-
+    public PlayerMovement pm;
     private string m_FireButton;                // The input axis that is used for launching shells.
     private bool m_Fired = true;                       // Whether or not the shell has been launched with this button press.
     private float nextFireTime;
-
+    int num = 1;
     private void OnEnable() {}
 
     private void Start() {
@@ -40,6 +40,11 @@ public class Disparo : MonoBehaviour
             m_Fired = false;
 
         }
+
+        if (pm.threeshoot)
+        {
+            num = 3;
+        }else num = 1;
     }
 
     public void Fire(float launchForce, float fireRate) {
@@ -47,12 +52,16 @@ public class Disparo : MonoBehaviour
             nextFireTime = Time.time + fireRate;
             // Set the fired flag so only Fire is only called once.
             m_Fired = true;
-
+            
             // Create an instance of the shell and store a reference to it's rigidbody.
-            GameObject shellInstance = Instantiate(m_Shell, m_FireTransform.position, m_FireTransform.rotation) as GameObject;
+            for (int i = 0; i < num; i++)
+            {
+                GameObject shellInstance = Instantiate(m_Shell, m_FireTransform.position, m_FireTransform.rotation) as GameObject;
+                shellInstance.GetComponent<Rigidbody>().velocity = m_LaunchForce * m_FireTransform.forward;
+            }
 
             // Set the shell's velocity to the launch force in the fire position's forward direction.
-            shellInstance.GetComponent<Rigidbody>().velocity = m_LaunchForce * m_FireTransform.forward;
+            
            
         }
     }

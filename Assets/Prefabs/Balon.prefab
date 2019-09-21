@@ -106,6 +106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MaxLifeTime: 4
+  player: {fileID: 100004, guid: 5d0aa074aaf4aeb4fb1c5006a669ebfe, type: 3}
 --- !u!54 &8230681082447782044
 Rigidbody:
   m_ObjectHideFlags: 0
