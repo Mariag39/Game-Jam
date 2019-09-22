@@ -1401,9 +1401,17 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
+<<<<<<< HEAD
 
   m_Text: "Ball \n     Slam"
 
+=======
+<<<<<<< HEAD
+  m_Text: NoN
+=======
+  m_Text: "Ball \n     Slam"
+>>>>>>> master
+>>>>>>> 850bf65a66ed7e1f06abfaa84f7c02f4c2d7b1a0
 --- !u!222 &1826491881
 CanvasRenderer:
   m_ObjectHideFlags: 0
