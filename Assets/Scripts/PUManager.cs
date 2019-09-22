@@ -6,6 +6,7 @@ public class PUManager : MonoBehaviour
 {
     public GameObject raio;
     float timer = 0.0f;
+    float taim = 0.0f;
     int seconds;
     public GameObject pelota;
 
@@ -31,14 +32,17 @@ public class PUManager : MonoBehaviour
     {
        
         timer += Time.deltaTime;
-       
+        taim += Time.deltaTime;
         int seconds = (int)(timer % 60);
+        int secs = (int)(taim % 60);
        
-        if (seconds == 5)
+        if (seconds == 15)
         {
-            //rayos();
+            rayos();
             ball();
             timer = 0f;
+          
         }
+      
     }
 }

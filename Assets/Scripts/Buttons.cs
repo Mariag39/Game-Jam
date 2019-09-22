@@ -18,4 +18,8 @@ public class Buttons : MonoBehaviour {
     {
         SceneManager.LoadScene("CreditsScene");
     }
+    public void GoToMenuScene()
+    {
+        SceneManager.LoadScene("MainMenuScene");
+    }
 }
